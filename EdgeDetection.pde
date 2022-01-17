@@ -1,14 +1,14 @@
-PImage img;
-String filename;
+PImage img; //image variable
+String filename; //only beginning of filename, don't add filetype (filetype being the ending, such as ".jpeg", ".png", etc.)
 float percentDifference;
 
 
 void setup(){
   size(640, 360);
   filename = "test-image-1";
-  percentDifference = 11.5; //the minimum difference in percentage for it to be an edge
+  percentDifference = 11.5; //the minimum difference in greyscale for it to be an edge
   img = loadImage(filename + ".jpeg");
-  noLoop();
+  noLoop(); //only runs the draw() function once
 }
 
 void draw(){
@@ -27,7 +27,7 @@ void draw(){
  }
 }
 
-//edge detection
+//edge detection - detects and shows edges.
 void detectEdge(int x1, int y1, int x2, int y2){
   //get colors
   color c1 = get(x1, y1);
@@ -43,7 +43,7 @@ void detectEdge(int x1, int y1, int x2, int y2){
   }
 }
 
-//scrambling method
+//scrambling method - very interesting
 void scramblePixel(int x1, int y1, int x2, int y2){
   float r1 = red(get(x1, y1));
   float g1 = green(get(x1, y1));
@@ -54,6 +54,8 @@ void scramblePixel(int x1, int y1, int x2, int y2){
   float b2 = blue(get(x2, y2));
   
   float threshhold = percentDifference;
+  
+  //add very small value in case r1 = 0
   float rDiff = abs(r2-r1)/(r1 + 0.000000001) * 100;
   float gDiff = abs(g2-g1)/(g1 + 0.000000001) * 100;
   float bDiff = abs(b2-b1)/(b1 + 0.000000001) * 100;
